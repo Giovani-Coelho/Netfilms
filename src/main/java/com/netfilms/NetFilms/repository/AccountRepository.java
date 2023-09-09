@@ -4,4 +4,5 @@ import com.netfilms.NetFilms.model.AccountModel;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface AccountRepository extends JpaRepository<AccountModel, Long> {
+  boolean existsByEmail(String email);
 }
