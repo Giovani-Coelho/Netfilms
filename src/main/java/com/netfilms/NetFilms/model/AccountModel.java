@@ -4,6 +4,7 @@ import lombok.Data;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.UUID;
 
 @Data
 @Entity
@@ -11,9 +12,11 @@ import java.time.LocalDateTime;
 public class AccountModel {
   @Id
   @GeneratedValue(strategy = GenerationType.AUTO)
-  private Long id;
+  @Column(name = "id", updatable = false, unique = true, nullable = false)
+  private UUID id;
   private String name;
   private String email;
   private String password;
+  private Boolean isAdmin = false;
   private LocalDateTime created_at;
 }

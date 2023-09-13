@@ -3,6 +3,7 @@ package com.netfilms.NetFilms.service;
 import com.netfilms.NetFilms.error.CustomExeption;
 import com.netfilms.NetFilms.model.AccountModel;
 import com.netfilms.NetFilms.repository.AccountRepository;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -24,6 +25,10 @@ public class AccountService {
     if (accountModel.getPassword().length() < 4) {
       throw new CustomExeption("Password too short!");
     }
+
+    BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
+    String passwordEncoded = bCryptPasswordEncoder.encode(accountModel.getPassword());
+    accountModel.setPassword(passwordEncoded);
 
     return accountRepository.save(accountModel);
   }
